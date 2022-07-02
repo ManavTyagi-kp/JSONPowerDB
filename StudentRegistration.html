@@ -51,10 +51,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <tr>
                     <div class="form-group">
                         <td>GENDER: </td>
-                        <td><label for="stdMale">Male: </label><input type="radio" id="stdMale" name="stdGender" value="Male"></td>
+                        <td><label for="stdMale">Male: &nbsp</label><input type="radio" id="stdMale" name="stdGender" value="Male"></td>
                     </tr>
                     <tr> <td></td>
-                        <td><label for="stdFemale">Female: </label><input type="radio" id="stdFemale" name="stdGender" value="Female" ></td>
+                        <td><label for="stdFemale">Female: &nbsp</label><input type="radio" id="stdFemale" name="stdGender" value="Female" ></td>
                     </div>    
                     </tr>
                     <tr>
@@ -115,7 +115,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 var radios = document.getElementsByName("stdGender");
                 var selected = Array.from(radios).find(radio => radio.checked);
-                alert(selected.value);
                 
                 var stdBranchVar = $("#stdBranch").val();
                 var stdDescVar = $("#stdDesc").val();
