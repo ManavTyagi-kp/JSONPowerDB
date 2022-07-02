@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>JSON PowerDB Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src=" http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js "></script>
+    </head>
+    <body>
+        <div class="container">
+            <h2> JSON PowerDB Sample Form</h2>
+            <form id="empForm" method="post">
+                <div class="form-group">
+                    <span> <label for="empId">Employee Id: </label><label id="empIdMsg"></label></span>
+                    <input type="text" class="form-control" id="empId" name="empId" placeholder="Enter Employee ID" required>
+                </div>    
+                <div class="form-group">
+                    <label for="empName">First name:</label>
+                    <input type="text" class="form-control" id="empName" name="empName" placeholder="Enter Employee Name" required><br>
+                </div>    
+                <div class="form-group">
+                    <label for="empMail">Email:</label>
+                    <input type="email" class="form-control" id="empMail" name="empMail" placeholder="Enter Employee Mail" required><br>
+                </div>
+                <input type="button" class="btn btn-primary" id="empSave" value="Save" onClick="saveEmployee();">
+            </form>
+        </div>
+        <script>
+            $("#empId").focus();
+            function validateAndGetFormData() {
+                var empIdVar = $("#empId").val();
+                if (empIdVar === "") {
+                    alert("Employee ID is required");
+                    $("#empId").focus();
+                    return "";
+                }
+
+                var empNameVar = $("#empName").val();
+                if (empNameVar === "") {
+                    alert("Employee Name is required");
+                    $("#empName").focus();
+                    return "";
+                }
+
+                var empMailVar = $("#empMail").val();
+                if (empMailVar === "") {
+                    alert("Employee Mail is required");
+                    $("#empMail").focus();
+                    return "";
+                }
+                var jsonStrObj = {
+                    empId: empIdVar,
+                    empName: empNameVar,
+                    empMail: empMailVar
+                };
+
+                return JSON.stringify(jsonStrObj);
+            }
+            //  function createPUTRequest(connToken, jsonObj, dbName, relName){
+            //      var putRequest = "{\n"
+            //      + "\"token\" : \""
+            //      + connToken
+            //      + "\"dbName\":\""
+            //      + dbName
+            //      + "\",\n" + "\"cmd\" : \"PUT\",\n"
+            //      + "\"rel\" : \""
+            //      + relName + "\","
+            //      + "\"jsonStr\":\n"
+            //      + jsonObj
+            //      + "\n"
+            //      + "}";
+            //    return putRequest;  
+            //  }
+
+            //  function executeCommand(reqString, dbBaseUrl, apiEndPointUrl){
+            //      var url = dbBaseUrl + apiEndPointUrl;
+            //      var jsonObj;
+            //      $.post(url, reqString, function (result){
+            //          jsonObj = JSON.parse(result);
+            //      }).fail(function(result){
+            //          var dataJsonObj = result.responseText;
+            //          jsonObj = JSON.parse(dataJsonObj);
+            //      });
+            //      return jsonObj;
+            //  }
+
+            function resetForm() {
+                $("#empId").val("");
+                $("#empName").val("");
+                $("#empMail").val("");
+                $("#empId").focus();
+            }
+
+            function saveEmployee() {
+                // validate form data
+                var jsonStr = validateAndGetFormData();
+                if (jsonStr === "") {
+                    return;
+                }
+                var putReqStr = createPUTRequest("90939289|-31949286890370811|90939803", jsonStr, "EmpNew", "EMP-REL");
+
+                alert(putReqStr);
+                jQuery.ajaxSetup({async: false});
+                var resultObj = executeCommandAtGivenBaseUrl(putReqStr, "http://api.login2explore.com:5577", "/api/iml");
+                alert(JSON.stringify(resultObj));
+                jQuery.ajaxSetup({async: true});
+
+
+                resetForm();
+            }
+        </script>
+    </body>
+</html>
