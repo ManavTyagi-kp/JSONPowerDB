@@ -4,116 +4,161 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html>
-<head>
-<title>JSON PowerDB Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src=" http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js "></script>
-</head>
-<body>
-    <div class="container">
-    <h2> JSON PowerDB Sample Form</h2>
-<form id="empForm" method="post">
-    <div class="form-group">
-        <span> <label for="empId">Employee Id: </label><label id="empIdMsg"></label></span>
-        <input type="text" class="form-control" id="empId" name="empId" placeholder="Enter Employee ID" required>
-    </div>    
-    <div class="form-group">
-        <label for="empName">First name:</label>
-        <input type="text" class="form-control" id="empName" name="empName" placeholder="Enter Employee Name" required><br>
-    </div>    
-    <div class="form-group">
-        <label for="empMail">Email:</label>
-        <input type="email" class="form-control" id="empMail" name="empMail" placeholder="Enter Employee Mail" required><br>
-    </div>
-    <input type="button" class="btn btn-primary" id="empSave" value="Save" onClick="saveEmployee();">
-</form>
-    <script>
-        $("#empId").focus();
-        function validateAndGetFormData(){
-            var empIdVar = $("#empId").val();
-            if(empIdVar === ""){
-                alert("Employee ID is required");
-                $("#empId").focus();
-                return "";
-            }
-            
-            var empNameVar = $("#empName").val();
-            if(empNameVar === ""){
-                alert("Employee Name is required");
-                $("#empName").focus();
-                return "";
-            }
-            
-            var empMailVar = $("#empMail").val();
-            if(empMailVar === ""){
-                alert("Employee Mail is required");
-                $("#empMail").focus();
-                return "";
-            }
-            var jsonStrObj = {
-                empId: empIdVar,
-                empName: empNameVar,
-                empMail: empMailVar
-            };
-            
-            return JSON.stringify(jsonStrObj);
+    <head>
+        <title>JSON PowerDB Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src=" http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js "></script>
+    </head>
+    <style>
+        body{
+            background-image: url("https://i.im.ge/2022/07/01/uD44Tm.jpg");
         }
-      //  function createPUTRequest(connToken, jsonObj, dbName, relName){
-      //      var putRequest = "{\n"
-      //      + "\"token\" : \""
-      //      + connToken
-      //      + "\"dbName\":\""
-      //      + dbName
-      //      + "\",\n" + "\"cmd\" : \"PUT\",\n"
-      //      + "\"rel\" : \""
-      //      + relName + "\","
-      //      + "\"jsonStr\":\n"
-      //      + jsonObj
-      //      + "\n"
-      //      + "}";
-      //    return putRequest;  
-      //  }
-        
-      //  function executeCommand(reqString, dbBaseUrl, apiEndPointUrl){
-      //      var url = dbBaseUrl + apiEndPointUrl;
-      //      var jsonObj;
-      //      $.post(url, reqString, function (result){
-      //          jsonObj = JSON.parse(result);
-      //      }).fail(function(result){
-      //          var dataJsonObj = result.responseText;
-      //          jsonObj = JSON.parse(dataJsonObj);
-      //      });
-      //      return jsonObj;
-      //  }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 15px;
+        }
+        td{
+            border: 0px solid #000;
+        }
+    </style>
+    <body>
+        <div class="container">
+            <h1 align=center>   Student Registration</font></h1>
+            <table border=0 align=center>
+                <form id="stdForm" method="post" align="center">
+                    <tr> 
+                    <div class="form-group">
+                        <th><span> <label for="stdId">Student Id: </label><label id="stdIdMsg"></label></span></th>
+                        <th><input type="text" class="form-control" id="stdId" name="stdId" placeholder="Enter Student ID" required></th>
+                    </div> 
+                    </tr>
+                    <tr>
+                    <div class="form-group">
+                        <th><label for="stdName">Student Name: </label></th>
+                        <th><input type="text" class="form-control" id="stdName" name="stdName" placeholder="Enter Student Name" required></th>
+                    </div> 
+                    </tr>
+                    <tr>
+                    <div class="form-group">
+                        <th><label for="stdPass">Password: </label></th>
+                        <th><input type="password" class="form-control" id="stdPass" name="stdPass" placeholder="Enter Your Password" required></th>
+                    </div> 
+                    </tr>
+                    <tr>
+                    <div class="form-group">
+                        <td>GENDER: </td>
+                        <td><label for="stdMale">Male: </label><input type="radio" id="stdMale" name="stdGender" value="Male"></td>
+                    </tr>
+                    <tr> <td></td>
+                        <td><label for="stdFemale">Female: </label><input type="radio" id="stdFemale" name="stdGender" value="Female" ></td>
+                    </div>    
+                    </tr>
+                    <tr>
+                    <div class="form-group">
+                        <th><label for="stdBranch">BRANCH: </label></th>
+                        <th><select name=t4 class="form-control" id="stdBranch" name="stdBranch">
+                                <option>CSE</option>
+                                <option>IT</option>
+                                <option>Mechanical</option>
+                                <option>Bio Tech.</option>
+                                <option>Civil</option>
+                            </select>
+                    </div>        
+                    </tr>
+                    <tr>
+                    <div class="form-group">
+                        <th colspan=2 align=left><label for="stdDesc">Add your description:</label></th>
+                    </div>
+                    </tr>
+                    <tr> 
+                    <div class="form-group">
+                        <th colspan=2><textarea class="form-control" id="stdDesc" name="stdDesc" rows=5 cols=38></textarea></th>
+                    </div>
+                    </tr>
+                    <tr>
+                    <div class="form-group">
+                        <th colspan=2><input type="button" class="btn btn-primary" id="stdSave" value="Save" onClick="saveStudent();">
+                            <input type=reset class="btn btn-primary" value="Reset">
+                        </th>
+                    </div>
+                    </tr> 
+                </form>
+            </table>
+        </div>
+        <script>
+            $("#stdId").focus();
+            function validateAndGetFormData() {
+                var stdIdVar = $("#stdId").val();
+                if (stdIdVar === "") {
+                    alert("Student ID is required");
+                    $("#stdId").focus();
+                    return "";
+                }
 
-        function resetForm() {
-        $("#empId").val("");
-        $("#empName").val("");
-        $("#empMail").val("");
-        $("#empId").focus();
-        }
+                var stdNameVar = $("#stdName").val();
+                if (stdNameVar === "") {
+                    alert("Student Name is required");
+                    $("#stdName").focus();
+                    return "";
+                }
 
-        function saveEmployee() {
-            // validate form data
-            var jsonStr = validateAndGetFormData();
-            if(jsonStr === ""){
-                return;
+                var stdPassVar = $("#stdPass").val();
+                if (stdPassVar === "") {
+                    alert("Student Password is required");
+                    $("#stdPass").focus();
+                    return "";
+                }
+
+                var radios = document.getElementsByName("stdGender");
+                var selected = Array.from(radios).find(radio => radio.checked);
+                alert(selected.value);
+                
+                var stdBranchVar = $("#stdBranch").val();
+                var stdDescVar = $("#stdDesc").val();
+
+                var jsonStrObj = {
+                    stdId: stdIdVar,
+                    stdName: stdNameVar,
+                    stdPass: stdPassVar,
+                    stdGender: selected.value,
+                    stdBranch: stdBranchVar,
+                    stdDesc: stdDescVar
+                };
+
+                return JSON.stringify(jsonStrObj);
             }
-            var putReqStr = createPUTRequest("90939289|-31949286890370811|90939803", jsonStr, "EmpNew", "EMP-REL");
-            
-            alert(putReqStr);
-            jQuery.ajaxSetup({async: false});
-            var resultObj = executeCommandAtGivenBaseUrl(putReqStr, "http://api.login2explore.com:5577", "/api/iml");
-            alert(JSON.stringify(resultObj));
-            jQuery.ajaxSetup({async: true}); 
-            
-            
-            resetForm();
-        }
-    </script>
-</body>
+
+            function resetForm() {
+                $("#stdId").val("");
+                $("#stdName").val("");
+                $("#stdPass").val("");
+                var selected = document.querySelector('input[type=radio][name=stdGender]:checked');
+                selected.checked=false;
+                $('#stdBranch').val("");
+                $('#stdDesc').val("");
+                $("#stdId").focus();
+            }
+
+            function saveStudent() {
+                var jsonStr = validateAndGetFormData();
+                if (jsonStr === "") {
+                    return;
+                }
+                var putReqStr = createPUTRequest("90939289|-31949286890370811|90939803", jsonStr, "Student", "STD-REL");
+
+                alert(putReqStr);
+                jQuery.ajaxSetup({async: false});
+                var resultObj = executeCommandAtGivenBaseUrl(putReqStr, "http://api.login2explore.com:5577", "/api/iml");
+                alert(JSON.stringify(resultObj));
+                jQuery.ajaxSetup({async: true});
+
+
+                resetForm();
+            }
+        </script>
+    </body>
 </html>
